@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  api:
+    container_name: experiences-api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: npm run start:dev
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+
+  database:
+    container_name: experiences_db
+    image: postgres:13
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5450:5432'
