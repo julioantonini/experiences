@@ -8,12 +8,10 @@ module.exports = {
   synchronize: false,
   migrationsRun: true,
   logging: process.env.NODE_ENV === 'local',
-  entities: [
-    'src/**/*.entity.{js,ts}',
-  ],
-  migrations:['src/migration/**{.ts,.js}'],
+  entities: [__dirname + '/../../**/*.entity.{ts,js}'],
+  migrations: [__dirname + '/../../migration/**{.ts,.js}'],
   cli: {
-    migrationsDir: ['src/migration'],
-    entitiesDir: 'src/**',
+    entitiesDir: 'src/**/',
+    migrationsDir: 'src/migration',
   },
 };
