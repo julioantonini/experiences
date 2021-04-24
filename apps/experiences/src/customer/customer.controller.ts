@@ -1,3 +1,4 @@
+import { CustomerEntity } from '@database/database/entity';
 import {
   Controller,
   Get,
@@ -10,7 +11,6 @@ import {
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
-import { CustomerEntity } from './entities/customer.entity';
 
 @Controller('customer')
 export class CustomerController {

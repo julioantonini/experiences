@@ -8,7 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "env nest start",
     "start:dev": "env nest start --watch",
     "start:debug": "env nest start --debug --watch",
@@ -18,9 +18,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:e2e": "jest --config ./apps/experiences/test/jest-e2e.json",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli",
-    "typeorm:cli": "yarn run typeorm -f ./src/config/database/typeorm.config.ts"
+    "typeorm:cli": "yarn run typeorm -f ./libs/database/src/config/typeorm.config.ts"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.15",
@@ -65,7 +65,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -73,7 +73,15 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "coverageDirectory": "./coverage",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/libs/",
+      "<rootDir>/apps/"
+    ],
+    "moduleNameMapper": {
+      "@database/database/(.*)": "<rootDir>/libs/database/src/$1",
+      "@database/database": "<rootDir>/libs/database/src"
+    }
   }
 }

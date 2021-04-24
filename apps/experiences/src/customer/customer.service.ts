@@ -1,3 +1,5 @@
+import { CustomerEntity } from '@database/database/entity';
+import { CustomerRepository } from '@database/database/repository/customer.repository';
 import {
   ConflictException,
   Injectable,
@@ -6,8 +8,6 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
-import { CustomerEntity } from './entities/customer.entity';
-import { CustomerRepository } from './repository/customer.repository';
 
 @Injectable()
 export class CustomerService {

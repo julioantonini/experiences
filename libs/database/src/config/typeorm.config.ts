@@ -1,3 +1,9 @@
+import * as database from '../entity';
+
+const entities = (Object.keys(database) as Array<keyof typeof database>).map(
+  (entity: keyof typeof database) => database[entity],
+);
+
 module.exports = {
   type: 'postgres',
   host: process.env.DB_HOST || 'database',
@@ -8,10 +14,10 @@ module.exports = {
   synchronize: false,
   migrationsRun: true,
   logging: process.env.NODE_ENV === 'local',
-  entities: [__dirname + '/../../**/entities/*.entity.{ts,js}'],
-  migrations: [__dirname + '/../../migration/**{.ts,.js}'],
+  entities,
+  migrations: [__dirname + '/../migration/**{.ts,.js}'],
   cli: {
-    entitiesDir: 'src/**/',
-    migrationsDir: 'src/migration',
+    entitiesDir: 'libs/database/src/entity',
+    migrationsDir: 'libs/database/src/migration',
   },
 };

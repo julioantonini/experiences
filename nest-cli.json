@@ -1,4 +1,48 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src"
+  "sourceRoot": "apps/experiences/src",
+  "projects": {
+    "database": {
+      "type": "library",
+      "root": "libs/database",
+      "entryFile": "index",
+      "sourceRoot": "libs/database/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/database/tsconfig.lib.json"
+      }
+    },
+    "experiences": {
+      "type": "application",
+      "root": "apps/experiences",
+      "entryFile": "main",
+      "sourceRoot": "apps/experiences/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/experiences/tsconfig.app.json"
+      }
+    },
+    "test": {
+      "type": "application",
+      "root": "apps/test",
+      "entryFile": "main",
+      "sourceRoot": "apps/test/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/test/tsconfig.app.json"
+      }
+    },
+    "teste": {
+      "type": "application",
+      "root": "apps/teste",
+      "entryFile": "main",
+      "sourceRoot": "apps/teste/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/teste/tsconfig.app.json"
+      }
+    }
+  },
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/experiences/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/experiences"
 }
