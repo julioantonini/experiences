@@ -17,6 +17,12 @@
       ],
       "@database/database/*": [
         "libs/database/src/*"
+      ],
+      "@validators/validators": [
+        "libs/validators/src"
+      ],
+      "@validators/validators/*": [
+        "libs/validators/src/*"
       ]
     }
   }

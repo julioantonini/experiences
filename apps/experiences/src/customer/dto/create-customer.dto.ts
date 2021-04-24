@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, Length, MaxLength, MinLength } from 'class-validator';
+import { IsValidCpf } from 'libs/validators/src';
 
 export class CreateCustomerDto {
   @IsNotEmpty()
@@ -9,6 +10,7 @@ export class CreateCustomerDto {
 
   phone: string;
 
-  @IsNotEmpty()
+  @Length(11, 11)
+  @IsValidCpf()
   cpf: string;
 }

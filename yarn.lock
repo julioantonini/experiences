@@ -1978,6 +1978,11 @@ cosmiconfig@^6.0.0:
     path-type "^4.0.0"
     yaml "^1.7.2"
 
+cpf-check@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/cpf-check/-/cpf-check-3.0.0.tgz#7279a1f6998a9385da1386bbe427fbf78144b9ec"
+  integrity sha512-IwUJdDJ57kheRXiO7govTBOcKsLK/AdDrVKfk6rYCCNDcOBUiY9zmUY0fWI4/S/oIpbhHWMcOD0O2DLawuwiBw==
+
 create-require@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"

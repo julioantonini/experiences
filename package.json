@@ -30,6 +30,7 @@
     "@nestjs/typeorm": "^7.1.5",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
+    "cpf-check": "^3.0.0",
     "dotenv": "^8.2.0",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
@@ -81,7 +82,9 @@
     ],
     "moduleNameMapper": {
       "@database/database/(.*)": "<rootDir>/libs/database/src/$1",
-      "@database/database": "<rootDir>/libs/database/src"
+      "@database/database": "<rootDir>/libs/database/src",
+      "@validators/validators/(.*)": "<rootDir>/libs/validators/src/$1",
+      "@validators/validators": "<rootDir>/libs/validators/src"
     }
   }
 }
