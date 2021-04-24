@@ -1,26 +1,17 @@
+import { ApiBody } from '@nestjs/swagger';
 import { CustomerEntity } from '@database/database/entity';
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CustomerService } from './customer.service';
-import { CreateCustomerDto } from './dto/create-customer.dto';
-import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { CustomerDto } from './dto/customer.dto';
 
 @Controller('customer')
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Post()
-  create(
-    @Body() createCustomerDto: CreateCustomerDto,
-  ): Promise<CustomerEntity> {
-    return this.customerService.create(createCustomerDto);
+  @ApiBody({ type: CustomerDto })
+  create(@Body() CustomerDto: CustomerDto): Promise<CustomerEntity> {
+    return this.customerService.create(CustomerDto);
   }
 
   @Get()
@@ -34,10 +25,7 @@ export class CustomerController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateCustomerDto: UpdateCustomerDto,
-  ) {
+  update(@Param('id') id: string, @Body() updateCustomerDto: CustomerDto) {
     return this.customerService.update(+id, updateCustomerDto);
   }
 

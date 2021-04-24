@@ -1,14 +1,8 @@
 import { CustomerEntity } from '@database/database/entity';
 import { CustomerRepository } from '@database/database/repository/customer.repository';
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateCustomerDto } from './dto/create-customer.dto';
-import { UpdateCustomerDto } from './dto/update-customer.dto';
-
+import { CustomerDto } from './dto/customer.dto';
 @Injectable()
 export class CustomerService {
   constructor(
@@ -16,8 +10,8 @@ export class CustomerService {
     private costumerRepository: CustomerRepository,
   ) {}
 
-  async create(createCustomerDto: CreateCustomerDto): Promise<CustomerEntity> {
-    const { email, cpf } = createCustomerDto;
+  async create(CustomerDto: CustomerDto): Promise<CustomerEntity> {
+    const { email, cpf } = CustomerDto;
 
     const costumerWithEmail = await this.costumerRepository.findByEmail(email);
     if (costumerWithEmail) {
@@ -29,7 +23,7 @@ export class CustomerService {
       throw new ConflictException('Cpf already in use');
     }
 
-    const customer = this.costumerRepository.create(createCustomerDto);
+    const customer = this.costumerRepository.create(CustomerDto);
     return this.costumerRepository.save(customer);
   }
 
@@ -45,10 +39,7 @@ export class CustomerService {
     return customer;
   }
 
-  async update(
-    id: number,
-    updateCustomerDto: UpdateCustomerDto,
-  ): Promise<CustomerEntity> {
+  async update(id: number, updateCustomerDto: CustomerDto): Promise<CustomerEntity> {
     const customer = await this.costumerRepository.findById(id);
     const { email, cpf } = updateCustomerDto;
 
