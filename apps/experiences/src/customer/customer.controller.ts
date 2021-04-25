@@ -1,6 +1,6 @@
-import { ApiBody } from '@nestjs/swagger';
 import { CustomerEntity } from '@database/database/entity';
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { ApiBody } from '@nestjs/swagger';
 import { CustomerService } from './customer.service';
 import { CustomerDto } from './dto/customer.dto';
 
@@ -24,7 +24,7 @@ export class CustomerController {
     return this.customerService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateCustomerDto: CustomerDto) {
     return this.customerService.update(+id, updateCustomerDto);
   }

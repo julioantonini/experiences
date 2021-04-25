@@ -10,20 +10,10 @@ export class CustomerService {
     private costumerRepository: CustomerRepository,
   ) {}
 
-  async create(CustomerDto: CustomerDto): Promise<CustomerEntity> {
-    const { email, cpf } = CustomerDto;
+  async create(customerDto: CustomerDto): Promise<CustomerEntity> {
+    await this.checkIfExists(customerDto);
 
-    const costumerWithEmail = await this.costumerRepository.findByEmail(email);
-    if (costumerWithEmail) {
-      throw new ConflictException('E-mail already in use');
-    }
-
-    const costumerWithCpf = await this.costumerRepository.findByCpf(cpf);
-    if (costumerWithCpf) {
-      throw new ConflictException('Cpf already in use');
-    }
-
-    const customer = this.costumerRepository.create(CustomerDto);
+    const customer = this.costumerRepository.create(customerDto);
     return this.costumerRepository.save(customer);
   }
 
@@ -39,23 +29,14 @@ export class CustomerService {
     return customer;
   }
 
-  async update(id: number, updateCustomerDto: CustomerDto): Promise<CustomerEntity> {
+  async update(id: number, customerDto: CustomerDto): Promise<CustomerEntity> {
+    await this.checkIfExists(customerDto, id);
+
     const customer = await this.costumerRepository.findById(id);
-    const { email, cpf } = updateCustomerDto;
-
-    const costumerWithEmail = await this.costumerRepository.findByEmail(email);
-    if (costumerWithEmail && costumerWithEmail.id !== id) {
-      throw new ConflictException('E-mail already in use');
-    }
-
-    const costumerWithCpf = await this.costumerRepository.findByCpf(cpf);
-    if (costumerWithCpf && costumerWithCpf.id !== id) {
-      throw new ConflictException('Cpf already in use');
-    }
 
     return this.costumerRepository.save({
       ...customer,
-      ...updateCustomerDto,
+      ...customerDto,
     });
   }
 
@@ -64,6 +45,21 @@ export class CustomerService {
 
     if (result.affected === 0) {
       throw new NotFoundException(`Customer with id: ${id} not found`);
+    }
+  }
+
+  private async checkIfExists(CustomerDto: CustomerDto, customerId: number = null) {
+    const { email, cpf } = CustomerDto;
+
+    const costumerWithEmail = await this.costumerRepository.findByEmail(email);
+    const costumerWithCpf = await this.costumerRepository.findByCpf(cpf);
+
+    if (customerId ? costumerWithEmail && costumerWithEmail.id !== customerId : costumerWithEmail) {
+      throw new ConflictException('E-mail already in use');
+    }
+
+    if (customerId ? costumerWithCpf && costumerWithCpf.id !== customerId : costumerWithCpf) {
+      throw new ConflictException('Cpf already in use');
     }
   }
 }
