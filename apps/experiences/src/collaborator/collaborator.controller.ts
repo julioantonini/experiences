@@ -1,3 +1,4 @@
+import { CollaboratorEntity } from '@database/database/entity';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
 import { CollaboratorService } from './collaborator.service';
@@ -14,17 +15,17 @@ export class CollaboratorController {
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<CollaboratorEntity[]> {
     return this.collaboratorService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<CollaboratorEntity> {
     return this.collaboratorService.findOne(+id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() collaboratorDto: CollaboratorDto) {
+  update(@Param('id') id: string, @Body() collaboratorDto: CollaboratorDto): Promise<CollaboratorEntity> {
     return this.collaboratorService.update(+id, collaboratorDto);
   }
 

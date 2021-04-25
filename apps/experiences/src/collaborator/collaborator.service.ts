@@ -22,11 +22,11 @@ export class CollaboratorService {
   }
 
   async findAll(): Promise<CollaboratorEntity[]> {
-    return this.collaboratorRepository.find({ relations: ['store'] });
+    return this.collaboratorRepository.findAll(['store']);
   }
 
   async findOne(id: number): Promise<CollaboratorEntity> {
-    const collaborator = await this.collaboratorRepository.findById(id);
+    const collaborator = await this.collaboratorRepository.findById(id, ['store']);
     if (!collaborator) this.throwNotFoundById('Collaborator', id);
 
     return collaborator;

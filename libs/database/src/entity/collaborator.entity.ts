@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { StoreEntity } from '.';
 
+export type CollaboratorEntityRelations = 'store';
 @Entity('collaborator')
 export class CollaboratorEntity {
   @PrimaryGeneratedColumn()
@@ -15,6 +16,6 @@ export class CollaboratorEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne((type) => StoreEntity, { eager: false, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+  @ManyToOne(() => StoreEntity, { eager: false, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
   store: StoreEntity;
 }

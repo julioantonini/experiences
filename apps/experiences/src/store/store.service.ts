@@ -14,11 +14,11 @@ export class StoreService {
   }
 
   async findAll(): Promise<StoreEntity[]> {
-    return this.storeRepository.find({ relations: ['collaborators'] });
+    return this.storeRepository.find();
   }
 
   async findOne(id: number) {
-    const store = await this.storeRepository.findById(id);
+    const store = await this.storeRepository.findById(id, ['collaborators']);
     if (!store) this.throwNotFoundById(id);
 
     return store;

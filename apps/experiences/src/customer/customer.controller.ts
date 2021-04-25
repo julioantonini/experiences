@@ -15,17 +15,17 @@ export class CustomerController {
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<CustomerEntity[]> {
     return this.customerService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<CustomerEntity> {
     return this.customerService.findOne(+id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() customerDto: CustomerDto) {
+  update(@Param('id') id: string, @Body() customerDto: CustomerDto): Promise<CustomerEntity> {
     return this.customerService.update(+id, customerDto);
   }
 
