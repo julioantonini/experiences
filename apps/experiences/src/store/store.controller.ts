@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
+import { ApiBody } from '@nestjs/swagger';
 import { StoreDto } from './dto/store.dto';
 import { StoreService } from './store.service';
 @Controller('store')
@@ -6,6 +7,7 @@ export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
   @Post()
+  @ApiBody({ type: StoreDto })
   create(@Body() storeDto: StoreDto) {
     return this.storeService.create(storeDto);
   }
@@ -21,6 +23,7 @@ export class StoreController {
   }
 
   @Put(':id')
+  @ApiBody({ type: StoreDto })
   update(@Param('id') id: string, @Body() storeDto: StoreDto) {
     return this.storeService.update(+id, storeDto);
   }
