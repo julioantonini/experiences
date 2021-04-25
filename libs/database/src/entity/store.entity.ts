@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { CollaboratorEntity } from './collaborator.entity';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('store')
 export class StoreEntity {
@@ -13,4 +14,7 @@ export class StoreEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany((type) => CollaboratorEntity, (collaborator) => collaborator.store)
+  collaborators: CollaboratorEntity[];
 }

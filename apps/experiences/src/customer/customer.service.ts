@@ -25,11 +25,10 @@ export class CustomerService {
   }
 
   async update(id: number, customerDto: CustomerDto): Promise<CustomerEntity> {
-    await this.checkIfExists(customerDto, id);
-
     const customer = await this.costumerRepository.findById(id);
-
     if (!customer) this.throwNotFoundById(id);
+
+    await this.checkIfExists(customerDto, id);
 
     return this.costumerRepository.save({
       ...customer,

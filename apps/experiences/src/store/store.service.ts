@@ -14,17 +14,17 @@ export class StoreService {
   }
 
   async findAll(): Promise<StoreEntity[]> {
-    return this.storeRepository.find();
+    return this.storeRepository.find({ relations: ['collaborators'] });
   }
 
-  async findOne(id: number): Promise<StoreEntity> {
+  async findOne(id: number) {
     const store = await this.storeRepository.findById(id);
     if (!store) this.throwNotFoundById(id);
 
     return store;
   }
 
-  async update(id: number, storeDto: StoreDto): Promise<StoreEntity> {
+  async update(id: number, storeDto: StoreDto) {
     const store = await this.storeRepository.findById(id);
     if (!store) this.throwNotFoundById(id);
 
