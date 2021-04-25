@@ -1,14 +1,10 @@
 import { CustomerEntity } from '@database/database/entity';
 import { CustomerRepository } from '@database/database/repository/customer.repository';
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { CustomerDto } from './dto/customer.dto';
 @Injectable()
 export class CustomerService {
-  constructor(
-    @InjectRepository(CustomerRepository)
-    private costumerRepository: CustomerRepository,
-  ) {}
+  constructor(private costumerRepository: CustomerRepository) {}
 
   async create(customerDto: CustomerDto): Promise<CustomerEntity> {
     await this.checkIfExists(customerDto);
@@ -17,15 +13,14 @@ export class CustomerService {
     return this.costumerRepository.save(customer);
   }
 
-  findAll(): Promise<CustomerEntity[]> {
+  async findAll(): Promise<CustomerEntity[]> {
     return this.costumerRepository.find();
   }
 
   async findOne(id: number): Promise<CustomerEntity> {
     const customer = await this.costumerRepository.findById(id);
-    if (!customer) {
-      throw new NotFoundException(`Customer with id: ${id} not found`);
-    }
+    if (!customer) this.throwNotFoundById(id);
+
     return customer;
   }
 
@@ -33,6 +28,8 @@ export class CustomerService {
     await this.checkIfExists(customerDto, id);
 
     const customer = await this.costumerRepository.findById(id);
+
+    if (!customer) this.throwNotFoundById(id);
 
     return this.costumerRepository.save({
       ...customer,
@@ -42,24 +39,24 @@ export class CustomerService {
 
   async delete(id: number) {
     const result = await this.costumerRepository.delete(id);
-
-    if (result.affected === 0) {
-      throw new NotFoundException(`Customer with id: ${id} not found`);
-    }
+    if (result.affected === 0) this.throwNotFoundById(id);
   }
 
-  private async checkIfExists(CustomerDto: CustomerDto, customerId: number = null) {
-    const { email, cpf } = CustomerDto;
+  private async checkIfExists(customerDto: CustomerDto, customerId: number = null) {
+    const { email, cpf } = customerDto;
 
     const costumerWithEmail = await this.costumerRepository.findByEmail(email);
-    const costumerWithCpf = await this.costumerRepository.findByCpf(cpf);
-
     if (customerId ? costumerWithEmail && costumerWithEmail.id !== customerId : costumerWithEmail) {
       throw new ConflictException('E-mail already in use');
     }
 
+    const costumerWithCpf = await this.costumerRepository.findByCpf(cpf);
     if (customerId ? costumerWithCpf && costumerWithCpf.id !== customerId : costumerWithCpf) {
       throw new ConflictException('Cpf already in use');
     }
+  }
+
+  private throwNotFoundById(id: number) {
+    throw new NotFoundException(`Customer with id: ${id} not found`);
   }
 }

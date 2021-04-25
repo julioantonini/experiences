@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsNumber, IsPhoneNumber, Length } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsPhoneNumber, Length } from 'class-validator';
 import { IsValidCpf } from 'libs/validators/src';
 
 export class CustomerDto {

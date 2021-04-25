@@ -10,8 +10,8 @@ export class CustomerController {
 
   @Post()
   @ApiBody({ type: CustomerDto })
-  create(@Body() CustomerDto: CustomerDto): Promise<CustomerEntity> {
-    return this.customerService.create(CustomerDto);
+  create(@Body() customerDto: CustomerDto): Promise<CustomerEntity> {
+    return this.customerService.create(customerDto);
   }
 
   @Get()
@@ -25,8 +25,8 @@ export class CustomerController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateCustomerDto: CustomerDto) {
-    return this.customerService.update(+id, updateCustomerDto);
+  update(@Param('id') id: string, @Body() customerDto: CustomerDto) {
+    return this.customerService.update(+id, customerDto);
   }
 
   @Delete(':id')

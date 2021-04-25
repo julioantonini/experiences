@@ -1,3 +1,4 @@
 import { CustomerEntity } from './customer.entity';
+import { StoreEntity } from './store.entity';
 
-export { CustomerEntity };
+export { CustomerEntity, StoreEntity };
