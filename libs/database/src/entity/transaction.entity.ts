@@ -6,12 +6,14 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { CollaboratorEntity, CustomerEntity, StoreEntity } from '.';
+import { RatingEntity } from './rating.entity';
 
-export type TransactionEntityRelations = 'custommer' | 'store' | 'collaborator';
+export type TransactionEntityRelations = 'custommer' | 'store' | 'collaborator' | 'ratting';
 
 @Entity('transaction')
 export class TransactionEntity {
@@ -38,6 +40,9 @@ export class TransactionEntity {
 
   @ManyToOne(() => CollaboratorEntity, { eager: false, onUpdate: 'CASCADE', onDelete: 'SET NULL' })
   collaborator: CollaboratorEntity;
+
+  @OneToMany(() => RatingEntity, (ratting) => ratting.transaction)
+  ratting: RatingEntity[];
 
   @AfterLoad() @BeforeInsert() @BeforeUpdate() _convertNumericsLoad() {
     this.value = parseFloat(this.value as any);

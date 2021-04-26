@@ -1,9 +1,10 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { TransactionDto } from './dto/transaction.dto';
 import { TransactionService } from './transaction.service';
 
 @Controller('transaction')
+@ApiTags('Transaction')
 export class TransactionController {
   constructor(private readonly transactionService: TransactionService) {}
 

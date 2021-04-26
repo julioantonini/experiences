@@ -1,10 +1,11 @@
 import { CollaboratorEntity } from '@database/database/entity';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { CollaboratorService } from './collaborator.service';
 import { CollaboratorDto } from './dto/collaborator.dto';
 
 @Controller('collaborator')
+@ApiTags('Collaborator')
 export class CollaboratorController {
   constructor(private readonly collaboratorService: CollaboratorService) {}
 

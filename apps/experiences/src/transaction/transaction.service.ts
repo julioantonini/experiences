@@ -42,7 +42,12 @@ export class TransactionService {
   }
 
   async findOne(id: number): Promise<TransactionEntity> {
-    const transaction = await this.transactionRepository.findById(id, ['custommer', 'store', 'collaborator']);
+    const transaction = await this.transactionRepository.findById(id, [
+      'custommer',
+      'store',
+      'collaborator',
+      'ratting',
+    ]);
     if (!transaction) this.throwNotFoundById('Transaction', id);
 
     return transaction;
@@ -71,9 +76,7 @@ export class TransactionService {
     transaction.collaborator = collaborator;
     transaction.value = value;
     transaction.date = date;
-    const saved = await this.transactionRepository.save(transaction);
-    console.log({ saved });
-    return saved;
+    return this.transactionRepository.save(transaction);
   }
 
   private throwNotFoundById(entityName: 'Collaborator' | 'Store' | 'Customer' | 'Transaction', id: number) {

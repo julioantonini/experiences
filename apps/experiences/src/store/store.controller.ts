@@ -1,9 +1,10 @@
 import { StoreEntity } from '@database/database/entity';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { StoreDto } from './dto/store.dto';
 import { StoreService } from './store.service';
 @Controller('store')
+@ApiTags('Store')
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 

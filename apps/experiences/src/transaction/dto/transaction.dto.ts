@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsNumberString } from 'class-validator';
-
+import { IsDateString, IsNumber, IsNumberString } from 'class-validator';
+import { Type } from 'class-transformer';
 export class TransactionDto {
   @ApiProperty()
   @IsNumberString()
@@ -19,6 +19,7 @@ export class TransactionDto {
   date: Date;
 
   @ApiProperty()
-  @IsNumberString()
+  @IsNumber()
+  @Type(() => Number)
   value: number;
 }
