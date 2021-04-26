@@ -18,7 +18,11 @@ export class RatingService {
     return this.ratingRepository.save(ratting);
   }
 
-  async findOne(id: number) {
+  async findAll(): Promise<RatingEntity[]> {
+    return this.ratingRepository.findAll(['transaction']);
+  }
+
+  async findOne(id: number): Promise<RatingEntity> {
     const ratting = await this.ratingRepository.findById(id, ['transaction']);
     if (!ratting) this.throwNotFoundById('Rating', id);
 

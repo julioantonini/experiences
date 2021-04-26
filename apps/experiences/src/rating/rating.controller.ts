@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { RatingService } from './rating.service';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { RatingDto } from './dto/rating.dto';
+import { RatingService } from './rating.service';
 
 @Controller('rating')
 @ApiTags('Rating')
@@ -12,6 +12,11 @@ export class RatingController {
   @ApiBody({ type: RatingService })
   create(@Body() ratingDto: RatingDto) {
     return this.ratingService.create(ratingDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.ratingService.findAll();
   }
 
   @Get(':id')
