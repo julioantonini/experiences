@@ -33,7 +33,6 @@ export class TransactionService {
     transaction.store = store;
     delete collaborator.store;
     transaction.collaborator = collaborator;
-
     return this.transactionRepository.save(transaction);
   }
 
