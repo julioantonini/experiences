@@ -7,10 +7,30 @@ Experiences is a commenting API to evaluate the customer experience developed wi
 - Node
 - Typescript
 - NestJs
+- Jest
 - TypeOrm
 - Postgres
 - Swagger
 - Docker
+
+## Functionalities:
+
+- Customers:
+  Complete crud of customers
+- Stores:
+  Complete crud of stores
+- Collaborators:
+  Complete crud of collaborators related with stores
+- Transaction:
+  Crud without delete, related with stores, collaborators and customers
+- Rating:
+  Crud without update and delete, related with transactions
+
+## Database relations:
+
+<div>
+  <img src="./.github/database.png" width="548">
+</div>
 
 ## System requirements:
 
