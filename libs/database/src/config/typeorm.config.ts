@@ -6,11 +6,13 @@ const entities = (Object.keys(database) as Array<keyof typeof database>).map(
 
 module.exports = {
   type: 'postgres',
-  host: process.env.DB_HOST || 'database',
-  port: Number(process.env.DB_PORT) || 5432,
-  username: process.env.DB_USERNAME || 'postgres',
-  password: process.env.DB_PASSWORD || 'postgres',
-  database: 'postgres',
+  url: process.env.DATABASE_URL,
+  ssl: true,
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
   synchronize: false,
   migrationsRun: true,
   logging: process.env.NODE_ENV === 'local',

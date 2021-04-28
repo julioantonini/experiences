@@ -88,5 +88,8 @@
       "@validators/validators/(.*)": "<rootDir>/libs/validators/src/$1",
       "@validators/validators": "<rootDir>/libs/validators/src"
     }
+  },
+  "engines": {
+    "node": "12.20.1-alpine"
   }
 }
