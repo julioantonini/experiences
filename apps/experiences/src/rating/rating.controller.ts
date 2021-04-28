@@ -9,7 +9,7 @@ export class RatingController {
   constructor(private readonly ratingService: RatingService) {}
 
   @Post()
-  @ApiBody({ type: RatingService })
+  @ApiBody({ type: RatingDto })
   create(@Body() ratingDto: RatingDto) {
     return this.ratingService.create(ratingDto);
   }
