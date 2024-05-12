@@ -18,10 +18,10 @@ export const dataSourceOptions: DataSourceOptions = {
   logging: process.env.NODE_ENV === 'local',
   entities,
   migrations: [__dirname + '/../migration/**{.ts,.js}'],
-  cli: {
-    entitiesDir: 'libs/database/src/entity',
-    migrationsDir: 'libs/database/src/migration',
-  },
+  // cli: {
+  //   entitiesDir: 'libs/database/src/entity',
+  //   migrationsDir: 'libs/database/src/migration',
+  // },
 };
 
 export const dataSource = new DataSource(dataSourceOptions);
