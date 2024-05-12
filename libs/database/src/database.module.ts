@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CustomRepositoryModule } from 'nestjs-typeorm-custom-repository';
+
+import { dataSourceOptions } from './config/data-source';
 import { repositories } from './repository';
 
-const typeOrmOptions = require('./config/typeorm.config');
-
 @Module({
-  imports: [
-    TypeOrmModule.forRoot(typeOrmOptions),
-    TypeOrmModule.forFeature(repositories),
-  ],
-  exports: [TypeOrmModule.forFeature(repositories)],
+  imports: [TypeOrmModule.forRoot(dataSourceOptions), CustomRepositoryModule.forFeature(repositories)],
+  exports: [CustomRepositoryModule.forFeature(repositories)],
 })
 export class DatabaseModule {}

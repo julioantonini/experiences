@@ -1,10 +1,12 @@
+import { DataSource, DataSourceOptions } from 'typeorm';
+
 import * as database from '../entity';
 
 const entities = (Object.keys(database) as Array<keyof typeof database>).map(
   (entity: keyof typeof database) => database[entity],
 );
 
-module.exports = {
+export const dataSourceOptions: DataSourceOptions = {
   type: 'postgres',
   host: process.env.DB_HOST || 'database',
   port: Number(process.env.DB_PORT) || 5432,
@@ -21,3 +23,5 @@ module.exports = {
     migrationsDir: 'libs/database/src/migration',
   },
 };
+
+export const dataSource = new DataSource(dataSourceOptions);
